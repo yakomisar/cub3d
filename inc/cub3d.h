@@ -10,5 +10,17 @@
 # include <math.h>
 # include "../minilibx_macos/mlx.h"
 
+typedef struct s_data
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		floor;
+	int		ceiling;
+	char	**map;
+}	t_data;
+
+
 
 #endif
