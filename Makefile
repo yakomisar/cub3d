@@ -9,11 +9,13 @@ OBJ			= $(SRC:.c=.o)
 INC 		= ./inc/
 BUILDDIR 	= ./build/
 BUILDOBJS 	= $(addprefix $(BUILDDIR), $(SRCNAMES:.c=.o))
+FLAGS_MAC	= -framework OpenGL -framework AppKit
 
 # Libft builds and dirs
 LIBDIR 		= ./libft/
 LIBFT 		= ./libft/libft.a
 LIBINC 		= ./libft/
+MLX			= ./minilibx_macos/libmlx.a
 
 # Optimization and compiler flags
 CC			= gcc
@@ -35,7 +37,7 @@ $(BUILDDIR)%.o:$(SRCDIR)%.c
 
 # Project file rule
 $(NAME): $(BUILDOBJS)
-	$(CC) -g -o $(NAME) $(BUILDOBJS) $(LIBFT)
+	$(CC) -g -o $(NAME) $(BUILDOBJS) $(LIBFT) $(MLX) $(FLAGS_MAC)
 
 # Libft rule
 $(LIBFT):

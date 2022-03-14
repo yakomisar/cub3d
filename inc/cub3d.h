@@ -1,16 +1,26 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# define BUFFER_SIZE 1
+
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include "../libft/libft.h"
 # include <errno.h>
 # include <string.h>
 # include <fcntl.h>
 # include <math.h>
-//# include "../minilibx_macos/mlx.h"
-# include "../minilibx-linux/mlx.h"
+# include <stdbool.h>
+# include "../libft/libft.h"
+# include "../minilibx_macos/mlx.h"
+// # include "../minilibx-linux/mlx.h"
+
+
+/* TO DELETE */
+
+# include <stdio.h>
+
+/* TO DELETE */
+
 
 # define LEFT_KEY   65361
 # define RIGHT_KEY   65363
@@ -22,10 +32,14 @@
 
 typedef struct s_data
 {
+    char    plr_ch;
+    int     plr_x;
+    int     plr_y;
     char	*no;
     char	*so;
     char	*we;
     char	*ea;
+    char    *file;
     int		floor;
     int		ceiling;
     char	**map;
@@ -121,6 +135,10 @@ void	ft_calc_step(t_raycast *rc);
 int		ft_color_column(t_raycast *rc);
 void	ft_draw_texture(t_raycast *rc, int x, int y);
 int		ft_exit(t_raycast *rc);
+
+
+int     get_next_line(int fd, char **line);
+
 
 int		ft_key_press(int keycode, t_raycast *rc);
 int		ft_key_release(int keycode, t_raycast *rc);

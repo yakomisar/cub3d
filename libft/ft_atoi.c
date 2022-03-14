@@ -16,28 +16,30 @@
 
 #include "libft.h"
 
-long int	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	char			*p;
-	long int		x;
-	long int		minus;
+	char		*s;
+	int			result;
+	int			i;
+	short int	sign;
 
-	x = 0;
-	minus = 1;
-	p = (char *)str;
-	while (*p == '\t' || *p == '\n' || *p == '\v' || *p == '\f' || *p == '\r'
-		|| *p == ' ')
-		p++;
-	if (*p == 45 || *p == 43)
-	{
-		if (*p == 45)
-			minus *= -1;
-		p++;
+	i = 0;
+	sign = 1;
+	result = 0;
+	s = (char *)str;
+	while (s[i] == '\t' || s[i] == '\r' || s[i] == '\n'
+		   || s[i] == ' ' || s[i] == '\f' || s[i] == '\v')
+		i++;
+	if (s[i] == '-' || s[i] == '+')
+	{	
+		if (s[i] == '-')
+			sign *= -1;
+		i++;
 	}
-	while (*p >= '0' && *p <= '9')
+	while (s[i] >= '0' && s[i] <= '9')
 	{
-		x = x * 10 + (*p - '0');
-		p++;
+		result = (result * 10) + (s[i] - '0');
+		i++;
 	}
-	return (x * minus);
+	return (result * sign);
 }
