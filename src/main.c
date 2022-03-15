@@ -27,6 +27,8 @@ int	main(int argc, char **argv)
     t_data data;
     t_raycast rc;
 
+    (void) argc;
+    (void) argv;
     map = malloc(sizeof (char*) * 14);
     map[0] = "1111111111111111111111111";
     map[1] = "1000000000110000000000001";
@@ -47,24 +49,14 @@ int	main(int argc, char **argv)
     data.map = map;
     data.ceiling = 2552030;
     data.floor = 338238976;
-    data.no = malloc(sizeof (char) * 21);
-    data.no = "./textures/eagle.xpm";
-    data.so = malloc(sizeof (char) * 22);
-    data.so = "./textures/greystone.xpm";
-    data.we = malloc(sizeof (char) * 19);
-    data.we = "./textures/red.xpm";
-    data.ea = malloc(sizeof (char) * 27);
-    data.ea = "./textures/purplestone.xpm";
-    rc.rx = 2147483647;
-    rc.ry = 2147483647;
-    rc.i = 1;
-    rc.nblines = 14;
-    rc.sizeline = 33;
+    data.no = ft_strdup("./textures/eagle.xpm");
+    data.so = ft_strdup("./textures/greystone.xpm");
+    data.we = ft_strdup("./textures/red.xpm");
+    data.ea = ft_strdup("./textures/purplestone.xpm");
+    data.plr_ch = 'S';
+    data.plr_x = 5;
+    data.plr_y = 13;
     rc.config = data;
-    rc.depart = 'S';
-    rc.dx = 5;
-    rc.dy = 13;
-    rc.screenx = 0;
-    rc.screeny = 0;
+    ft_count_lines(&rc);
     ft_mlx(&rc);
 }

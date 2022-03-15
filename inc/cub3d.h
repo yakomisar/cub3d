@@ -9,6 +9,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <math.h>
+# include <limits.h>
 //# include "../minilibx_macos/mlx.h"
 # include "../minilibx-linux/mlx.h"
 
@@ -22,6 +23,10 @@
 
 typedef struct s_data
 {
+
+    char    plr_ch;
+    int     plr_x;
+    int     plr_y;
     char	*no;
     char	*so;
     char	*we;
@@ -93,14 +98,7 @@ typedef struct		s_info
 
 typedef struct		s_raycast
 {
-    int				rx;
-    int				ry;
-    int				i;
     int				nblines;
-    int				sizeline;
-    char			depart;
-    int				dx;
-    int				dy;
     int				error;
     int				screenx;
     int				screeny;
@@ -127,4 +125,6 @@ int		ft_key_release(int keycode, t_raycast *rc);
 void	ft_rotate_right_left(t_raycast *rc);
 void	ft_forward_back(t_raycast *rc);
 void	ft_left_right(t_raycast *rc);
+void    ft_count_lines(t_raycast *rc);
+
 #endif

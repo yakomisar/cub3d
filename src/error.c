@@ -39,11 +39,11 @@ void	ft_error(t_raycast *rc, char *str)
         free(rc->config.we);
     if (rc->config.ea)
         free(rc->config.ea);
-    if (rc->config.map)
-    {
-        while (++i < rc->nblines)
-            free(rc->config.map[i]);
-    }
+//    if (rc->config.map)
+//    {
+//        while (++i < rc->nblines)
+//            free(rc->config.map[i]);
+//    }
     if (rc->config.map)
         free(rc->config.map);
     ft_exit(rc);
