@@ -34,5 +34,8 @@ int		get_next_line(int fd, char **line);
 int		save_line(char **line, char **box);
 char	*ft_strdup(const char *str);
 char	*ft_strchr_cub(char *s, int c);
+int		check_color(char color, int i, t_data *data);
+void	parse_color(int *i, t_data *data, char color);
+
 
 #endif

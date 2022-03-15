@@ -59,15 +59,15 @@ void	read_file(t_data *data, char *map)
 
 int	complete(t_data *data)
 {
-	if (data->ea && data->no && data->so && data->we)
-	{
-		return (1);
-	}
-	// if (data->ceiling != -10 && data->floor != -10 && \
-	// 	data->ea && data->no && data->so && data->we)
+	// if (data->ea && data->no && data->so && data->we)
 	// {
 	// 	return (1);
 	// }
+	if (data->ceiling != -10 && data->floor != -10 && \
+		data->ea && data->no && data->so && data->we)
+	{
+		return (1);
+	}
 	return (0);
 }
 
@@ -116,110 +116,9 @@ void	parse_values(int *i, t_data *data, char **param)
 	*param = ft_substr(data->file, pos, (*i) - pos);
 }
 
-int	to_hex(int r, int g, int b)
-{
-	write(1, "parse\n", 6);
-	return (r << 16 | g << 8 | b);
-}
-
 bool	no_number(char a)
 {
 	return !(a >= '0' && a <= '9');
-}
-
-void	parse_color(int *i, t_data *data, char color)
-{
-	int			pos;
-	long long	r;
-	long long	g;
-	long long	b;
-
-	pos = *i;
-	while (data->file[*i] && data->file[*i] != '\n' && (data->file[*i] == ' ' || data->file[*i] == '\t'))
-		(*i)++;
-	if (data->file[*i] == ',' || data->file[*i] == '\n')
-	{
-		write(1, "Error: comma or eof has been identified\n", 40);
-		exit(1);
-	}
-	while (data->file[*i] && data->file[*i] != ',' && data->file[*i] != '\n')
-	{
-		if (no_number(data->file[*i]))
-		{
-			write(1, "Error: not a number\n", 20);
-			exit(1);
-		}
-		(*i)++;
-	}
-	if (*i != pos)
-		r = ft_atoi(ft_substr(data->file, pos, *i - pos));
-	else
-	{
-		write(1, "Error: no arguments\n", 20);
-		exit(1);
-	}
-	(*i)++;
-	pos = *i;
-	while (data->file[*i] && data->file[*i] != ',' && data->file[*i] != '\n')
-	{
-		if (no_number(data->file[*i]))
-		{
-			write(1, "Error: not a number\n", 20);
-			exit(1);
-		}
-		(*i)++;
-	}
-	if (*i != pos)
-		g = ft_atoi(ft_substr(data->file, pos, *i - pos));
-	else
-	{
-		write(1, "Error: no arguments\n", 20);
-		exit(1);
-	}
-	(*i)++;
-	pos = *i;
-	while (data->file[*i] && data->file[*i] != ',' && data->file[*i] != '\n')
-	{
-		if (no_number(data->file[*i]))
-		{
-			write(1, "Error: not a number\n", 20);
-			exit(1);
-		}
-		(*i)++;
-	}
-	if (*i != pos)
-		b = ft_atoi(ft_substr(data->file, pos, *i - pos));
-	else
-	{
-		write(1, "Error: no arguments\n", 20);
-		exit(1);
-	}
-	if (r > 255 || g > 255 || b > 255)
-	{
-		write(1, "Error: not an RGB\n", 18);
-		exit(1);
-	}
-	if (color == 'F')
-		data->floor = to_hex(r, g, b);
-	else if (color == 'C')
-		data->ceiling = to_hex(r, g, b);
-}
-
-int	check_color(char color, int i, t_data *data)
-{
-	write(1, "parsing\n", 8);
-	if (data->file[i] == color)
-	{
-		
-		if (data->file[i + 1] == ' ' || data->file[i + 1] == '\t')
-			return (1);
-		else
-		{
-			write(1, "Error: bad pathway for color\n", 19);
-			exit(1);
-		}
-	}
-	return (0);
 }
 
 void	get_features(int *i, t_data *data)
@@ -248,7 +147,6 @@ void	get_features(int *i, t_data *data)
 	}
 	else if (check_color('C', *i, data))
 	{
-		write(1, "parse C\n", 8);
 		(*i) += 1;
 		parse_color(i, data, 'C');
 	}
@@ -290,33 +188,6 @@ void	check_data(t_data *data)
 		write(1, "Error: incorrect extension in textures\n", 39);
 		exit(1);
 	}
-}
-
-int	get_size(char *str)
-{
-	int	i;
-	int	size;
-	int	symbol;
-
-	i = 0;
-	size = 0;
-	symbol = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\n' || (i == ft_strlen(str) - 1))
-		{
-			size++;
-			symbol = 0;
-		}
-		// if ((i == ft_strlen(str) - 1) && !str[i + 1])
-		// {
-		// 	write(1, "Error: blanked lines should be removed\n", 39);
-		// 	exit(1);
-		// }
-		// symbol++;
-		i++;
-	}
-	return (size);
 }
 
 void	init_map(int i, t_data *data, int height)
@@ -537,11 +408,6 @@ void	parse_data(t_data *data)
 		if (complete(data))
 			break ;
 		get_features(&i, data);
-		// if (check_string(data->file[i]))
-		// {
-		// 	write(1, "Error: bad symbols\n", 19);
-		// 	exit(1);
-		// }
 		i++;
 	}
 	check_data(data);
@@ -598,8 +464,19 @@ int	main(int argc, char **argv)
 		printf("%s\n", data->we);
 		printf("%d\n", data->floor);
 		printf("%d\n", data->ceiling);
-		printf("Player position. (%d,%d)", data->plr_x, data->plr_y);
+		printf("Player position. (%d,%d)\n", data->plr_x, data->plr_y);
+		printf("Player: %c\n", data->plr_ch);
 
+		int i;
+
+		i = 0;
+		// j = 0;
+		while (data->map[i])
+		{
+			i++;
+		}
+		printf("%d\n", i);
+		
 	}
 	return (0);
 }
