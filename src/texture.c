@@ -36,14 +36,14 @@ void	ft_draw_texture(t_raycast *rc, int x, int y)
     if (rc->ray.side == 1 && rc->ray.raydiry < 0)
         rc->t.texx = rc->texture[rc->t.texdir].width -
                      rc->t.texx - 1;
-    rc->t.texpos = (rc->ray.drawstart - rc->ry / 2 +
+    rc->t.texpos = (rc->ray.drawstart - rc->screeny / 2 +
                     rc->ray.lineheight / 2) * rc->t.step;
     while (++y <= rc->ray.drawend)
     {
         rc->t.texy = (int)rc->t.texpos &
                      (rc->texture[rc->t.texdir].height - 1);
         rc->t.texpos += rc->t.step;
-        if (y < rc->ry && x < rc->rx)
+        if (y < rc->screeny && x < rc->screenx)
             rc->data.addr[y * rc->data.line_length / 4 + x] =
                     rc->texture[rc->t.texdir].addr[rc->t.texy *
                                                    rc->texture[rc->t.texdir].line_length /

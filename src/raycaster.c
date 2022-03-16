@@ -44,7 +44,7 @@ void	ft_get_texture(t_raycast *rc)
 int		ft_raycasting(t_raycast *rc)
 {
     rc->ray.x = 0;
-    while (rc->ray.x < rc->rx)
+    while (rc->ray.x < rc->screenx)
     {
         ft_calc_ray(rc);
         ft_calc_step(rc);
@@ -65,18 +65,18 @@ int		ft_mlx(t_raycast *rc)
     printf("here\n");
     if (!(rc->data.mlx_ptr = mlx_init()))
         ft_error(rc, "Mlx init impossible\n"); //here
-    mlx_get_screen_size(rc->data.mlx_ptr, &rc->screenx, &rc->screeny);
-    rc->rx = (rc->rx > rc->screenx) ? rc->screenx : rc->rx;
-    rc->ry = (rc->ry > rc->screeny) ? rc->screeny : rc->ry;
-    printf("%i %i\n", rc->rx, rc->ry);
-    ft_get_texture(rc); //here
+//    mlx_get_screen_size(rc->data.mlx_ptr, &rc->screenx, &rc->screeny);
+//    rc->rx = (rc->rx > rc->screenx) ? rc->screenx : rc->rx;
+//    rc->ry = (rc->ry > rc->screeny) ? rc->screeny : rc->ry;
+//    printf("%i %i\n", rc->rx, rc->ry);
+    ft_get_texture(rc);
 
-    rc->data.img = mlx_new_image(rc->data.mlx_ptr, rc->rx, rc->ry);
+    rc->data.img = mlx_new_image(rc->data.mlx_ptr, rc->screenx, rc->screeny);
     rc->data.addr = (int *)mlx_get_data_addr(rc->data.img, &rc->data.
             bits_per_pixel, &rc->data.line_length, &rc->data.endian);
 
-    rc->data.mlx_win = mlx_new_window(rc->data.mlx_ptr, rc->rx,
-                                      rc->ry, "Hello world!");
+    rc->data.mlx_win = mlx_new_window(rc->data.mlx_ptr, rc->screenx,
+                                      rc->screeny, "Hello world!");
     mlx_hook(rc->data.mlx_win, 33, 1L << 17, ft_exit, rc);
     mlx_hook(rc->data.mlx_win, 2, 1L << 0, ft_key_press, rc);
     mlx_loop_hook(rc->data.mlx_ptr, ft_raycasting, rc);

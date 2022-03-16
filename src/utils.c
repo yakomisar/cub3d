@@ -4,13 +4,23 @@
 
 #include "../inc/cub3d.h"
 
+void    ft_count_lines(t_raycast *rc)
+{
+    int i;
+
+    i = 0;
+    while(rc->config.map[i])
+        i++;
+    rc->nblines = i;
+}
+
 int		ft_color_column(t_raycast *rc)
 {
     int j;
     int i;
 
     j = -1;
-    rc->ray.drawend = rc->ry - rc->ray.drawstart;
+    rc->ray.drawend = rc->screeny - rc->ray.drawstart;
     i = rc->ray.drawend;
     while (++j < rc->ray.drawstart)
         rc->data.addr[j * rc->data.line_length / 4 +
@@ -18,7 +28,7 @@ int		ft_color_column(t_raycast *rc)
     if (j <= rc->ray.drawend)
         ft_draw_texture(rc, rc->ray.x, j);
     j = i;
-    while (++j < rc->ry)
+    while (++j < rc->screeny)
         rc->data.addr[j * rc->data.line_length / 4 +
                       rc->ray.x] = rc->config.floor;
     return (0);
@@ -34,13 +44,13 @@ void	ft_calc_start_end(t_raycast *rc)
         rc->ray.perpwalldist = ((double)rc->ray.mapy - \
 				rc->ray.posy + (1 - (double)rc->ray.
                 stepy) / 2) / rc->ray.raydiry;
-    rc->ray.lineheight = (int)(rc->ry / rc->ray.perpwalldist);
-    rc->ray.drawstart = -rc->ray.lineheight / 2 + rc->ry / 2;
+    rc->ray.lineheight = (int)(rc->screeny / rc->ray.perpwalldist);
+    rc->ray.drawstart = -rc->ray.lineheight / 2 + rc->screeny / 2;
     if (rc->ray.drawstart < 0)
         rc->ray.drawstart = 0;
-    rc->ray.drawend = rc->ray.lineheight / 2 + rc->ry / 2;
-    if (rc->ray.drawend >= rc->ry || rc->ray.drawend < 0)
-        rc->ray.drawend = rc->ry - 1;
+    rc->ray.drawend = rc->ray.lineheight / 2 + rc->screeny / 2;
+    if (rc->ray.drawend >= rc->screeny || rc->ray.drawend < 0)
+        rc->ray.drawend = rc->screeny - 1;
 }
 
 void	ft_increment_ray(t_raycast *rc)
