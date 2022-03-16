@@ -79,14 +79,6 @@ void	get_values(char *str, char color, t_data *data)
 	else if (color == 'C')
 		data->ceiling = to_hex(r, g, b);
 	
-	// printf("param[0]: %s\n", param[0]);
-	// printf("param[1]: %s\n", param[1]);
-	// printf("param[2]: %s\n", param[2]);
-	// printf("param[3]: %s\n", param[3]);
-	// printf("Color: %c\n", color);
-	printf("ceiling: %d\n", data->ceiling);
-	printf("floor: %d\n", data->floor);
-	// exit(1);
 }
 
 void	parse_color(int *i, t_data *data, char color)
