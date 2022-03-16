@@ -25,26 +25,26 @@ int		ft_exit(t_raycast *rc)
 
 void	ft_error(t_raycast *rc, char *str)
 {
-    int i;
+    // int i;
 
-    i = -1;
+    // i = -1;
     rc->error = 1;
     write(1, "Error\n", 6);
     write(1, str, ft_strlen(str));
-    if (rc->config.no)
-        free(rc->config.no);
-    if (rc->config.so)
-        free(rc->config.so);
-    if (rc->config.we)
-        free(rc->config.we);
-    if (rc->config.ea)
-        free(rc->config.ea);
+    if (rc->config->no)
+        free(rc->config->no);
+    if (rc->config->so)
+        free(rc->config->so);
+    if (rc->config->we)
+        free(rc->config->we);
+    if (rc->config->ea)
+        free(rc->config->ea);
 //    if (rc->config.map)
 //    {
 //        while (++i < rc->nblines)
 //            free(rc->config.map[i]);
 //    }
-    if (rc->config.map)
-        free(rc->config.map);
+    if (rc->config->map)
+        free(rc->config->map);
     ft_exit(rc);
 }

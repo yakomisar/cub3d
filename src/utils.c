@@ -9,7 +9,7 @@ void    ft_count_lines(t_raycast *rc)
     int i;
 
     i = 0;
-    while(rc->config.map[i])
+    while(rc->config->map[i])
         i++;
     rc->nblines = i;
 }
@@ -24,13 +24,13 @@ int		ft_color_column(t_raycast *rc)
     i = rc->ray.drawend;
     while (++j < rc->ray.drawstart)
         rc->data.addr[j * rc->data.line_length / 4 +
-                      rc->ray.x] = rc->config.ceiling;
+                      rc->ray.x] = rc->config->ceiling;
     if (j <= rc->ray.drawend)
         ft_draw_texture(rc, rc->ray.x, j);
     j = i;
     while (++j < rc->screeny)
         rc->data.addr[j * rc->data.line_length / 4 +
-                      rc->ray.x] = rc->config.floor;
+                      rc->ray.x] = rc->config->floor;
     return (0);
 }
 
@@ -69,7 +69,7 @@ void	ft_increment_ray(t_raycast *rc)
             rc->ray.mapy += rc->ray.stepy;
             rc->ray.side = 1;
         }
-        if (rc->config.map[rc->ray.mapx][rc->ray.mapy] == '1')
+        if (rc->config->map[rc->ray.mapx][rc->ray.mapy] == '1')
             rc->ray.hit = 1;
     }
     ft_calc_start_end(rc);

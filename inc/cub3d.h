@@ -116,7 +116,7 @@ typedef struct		s_raycast
     t_info			data;
     t_ray			ray;
     t_texture		t;
-    t_data          config;
+    t_data          *config;
 }					t_raycast;
 
 void	ft_init(t_raycast *rc);
@@ -129,9 +129,34 @@ int		ft_color_column(t_raycast *rc);
 void	ft_draw_texture(t_raycast *rc, int x, int y);
 int		ft_exit(t_raycast *rc);
 
-
+/* Functions for parsing*/
 int     get_next_line(int fd, char **line);
-
+void	parse_values(int *i, t_data *data, char **param);
+int     check_string(char c);
+int     check_value(char *param, int i, t_data *data);
+void    check_error(t_data *data, int j, int i);
+int     check_extension(t_data *data);
+int     check_n(int i, t_data *data, char **map_elem);
+bool    check_plr(char a);
+void	check_numbers(char **str);
+void	get_values(char *str, char color, t_data *data);
+void	parse_color(int *i, t_data *data, char color);
+int     check_color(char color, int i, t_data *data);
+int     check_size_map(int i, t_data *data);
+bool	check_s_t(char a, int check);
+void	check_first_last_string(int j, t_data *data);
+void	make_array_map(int i, t_data *data);
+void	map_error(t_data *data);
+void	read_map(int i, t_data *data);
+void	check_data(t_data *data);
+void	get_features(int *i, t_data *data);
+int     complete(t_data *data);
+void	parse_data(t_data *data);
+void	init_player(t_data *data);
+void	init_data(t_data *data);
+void	free_and_exit(t_data *data, int flag);
+void	read_file(t_data *data, char *map);
+/* End of functions for parsing*/
 
 int		ft_key_press(int keycode, t_raycast *rc);
 int		ft_key_release(int keycode, t_raycast *rc);
