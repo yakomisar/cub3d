@@ -1,0 +1,13 @@
+NO ./textures/stone.xpm
+
+		EA 		./textures/WALL74.xpm
+    WE     ./textures/we_tex.xpm
+  SO    ./textures/so_tex.xpm
+
+C 255,255,233
+F 245,230,,,,,,120
+
+111111111
+110000001
+100010N01
+111111111

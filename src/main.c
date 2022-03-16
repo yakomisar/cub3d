@@ -94,11 +94,11 @@ int	main(int argc, char **argv)
     // data.plr_ch = 'S';
     // data.plr_x = 5;
     // data.plr_y = 13;
-    rc.config = data;
-	write(1, "Try 2\n", 6);
-    ft_count_lines(&rc);
-	printf("NB lines: %d\n", rc.nblines);
-    ft_mlx(&rc);
+		rc.config = data;
+		write(1, "Try 2\n", 6);
+		ft_count_lines(&rc);
+		printf("NB lines: %d\n", rc.nblines);
+		ft_mlx(&rc);
 
 	}
     

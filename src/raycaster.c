@@ -25,19 +25,19 @@ void	ft_get_texture(t_raycast *rc)
     if (!(rc->texture[0].img = mlx_xpm_file_to_image(rc->data.mlx_ptr,
                                                      rc->config->no, &(rc->texture[0].width),
                                                      &(rc->texture[0].height))))
-        ft_error(rc, "Texture SO\n");
+        ft_error(rc, "Texture NO\n");
     if (!(rc->texture[1].img = mlx_xpm_file_to_image(rc->data.mlx_ptr,
                                                      rc->config->so, &(rc->texture[1].width),
                                                      &(rc->texture[1].height))))
-        ft_error(rc, "Texture NO\n");
+        ft_error(rc, "Texture SO\n");
     if (!(rc->texture[2].img = mlx_xpm_file_to_image(rc->data.mlx_ptr,
                                                      rc->config->we, &(rc->texture[2].width),
                                                      &(rc->texture[2].height))))
-        ft_error(rc, "Texture EA\n");
+        ft_error(rc, "Texture WE\n");
     if (!(rc->texture[3].img = mlx_xpm_file_to_image(rc->data.mlx_ptr,
                                                      rc->config->ea, &(rc->texture[3].width),
                                                      &(rc->texture[3].height))))
-        ft_error(rc, "Texture WE\n");
+        ft_error(rc, "Texture EA\n");
     ft_get_texture_adress(rc);
 }
 

@@ -52,6 +52,19 @@ void	check_numbers(char **str)
 	}
 }
 
+void	free_param(char **param)
+{
+	int	i;
+
+	i = 0;
+	while (param[i])
+	{
+		free(param[i]);
+		i++;
+	}
+	free(param);
+}
+
 void	get_values(char *str, char color, t_data *data)
 {
 	char		**param;
@@ -78,7 +91,8 @@ void	get_values(char *str, char color, t_data *data)
 		data->floor = to_hex(r, g, b);
 	else if (color == 'C')
 		data->ceiling = to_hex(r, g, b);
-	
+	if (param)
+		free_param(param);
 }
 
 void	parse_color(int *i, t_data *data, char color)
