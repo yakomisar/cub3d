@@ -79,7 +79,9 @@ void	ft_calc_ray(t_raycast *rc)
 
 void	ft_init_sub(t_raycast *rc)
 {
-    rc->config->plr_ch = 'x';
+    write(1, "Try 3\n", 6);
+    
+    //rc->config->plr_ch = 'x';
     rc->error = 0;
     rc->data.img = NULL;
     rc->texture[0].img = NULL;
@@ -104,7 +106,8 @@ void	ft_init(t_raycast *rc)
     // rc->config->plr_x = 0;
     // rc->config->plr_y = 0;
     rc->count = 0;
-    rc->screenx = 960;
+    rc->screenx = 1024;
     rc->screeny = 540;
+    write(1, "Try 2\n", 6);
     ft_init_sub(rc);
 }

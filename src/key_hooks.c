@@ -6,6 +6,8 @@
 
 int		ft_key_press(int keycode, t_raycast *rc)
 {
+    printf("key : %d\n", keycode);
+
     if (keycode == W_KEY)
         rc->data.forward = 1;
     else if (keycode == S_KEY)

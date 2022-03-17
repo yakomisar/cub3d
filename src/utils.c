@@ -36,7 +36,7 @@ int		ft_color_column(t_raycast *rc)
 
 void	ft_calc_start_end(t_raycast *rc)
 {
-    write(1, "zzz\n", 4);
+    
     if (rc->ray.side == 0)
         rc->ray.perpwalldist = ((double)rc->ray.mapx - \
 				rc->ray.posx + (1 - (double)rc->ray.
@@ -70,16 +70,15 @@ void	ft_increment_ray(t_raycast *rc)
             rc->ray.mapy += rc->ray.stepy;
             rc->ray.side = 1;
         }
-        printf("Map x: %d\n", rc->ray.mapx);
-        printf("Map y: %d\n", rc->ray.mapy);
-        printf("Player on the map: %d %d\n", rc->config->plr_x, rc->config->plr_y);
-        printf("Char on the map: %c\n", rc->config->map[2][6]);
+        // printf("Map x: %d\n", rc->ray.mapx);
+        // printf("Map y: %d\n", rc->ray.mapy);
+        // printf("Player on the map: %d %d\n", rc->config->plr_x, rc->config->plr_y);
+        // printf("Char on the map: %c\n", rc->config->map[2][6]);
         // if (rc->config->map[rc->ray.mapx][rc->ray.mapy] == '1')
         //     rc->ray.hit = 1;
-        if (rc->config->map[rc->ray.mapy][rc->ray.mapx] == '1')
+        if (rc->config->map[rc->ray.mapx][rc->ray.mapy] == '1')
             rc->ray.hit = 1;
     }
-    write(1, "zzz\n", 4);
     ft_calc_start_end(rc);
 }
 

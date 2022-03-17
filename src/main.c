@@ -58,12 +58,40 @@ int	main(int argc, char **argv)
 		parse_data(data);
 		init_player(data);
 		
-		write(1, "Try 1\n", 6);
+		
 		
 		ft_init(&rc);
+		printf("Player position: %d %d\n", data->plr_x, data->plr_y);
+		int i;
+		
 
-		printf("Player character: %c\n", rc.config->plr_ch);
+		i = 0;
+		while (data->map[i])
+		{
+			printf("%s\n", data->map[i]);
+			i++;
+		}
+		
+		int swap;
 
+		swap = 0;
+		swap = data->plr_x;
+		data->plr_x = data->plr_y;
+		data->plr_y = swap;
+
+		printf("Player letter: %c\n", data->plr_ch);
+		
+		data->map[data->plr_x][data->plr_y] = '0';
+		printf("Player letter: %c\n", data->plr_ch);
+
+		i = 0;
+		while (data->map[i])
+		{
+			printf("%s\n", data->map[i]);
+			i++;
+		}
+		
+		
 	// char **map;
     // t_data data;
     
@@ -95,9 +123,11 @@ int	main(int argc, char **argv)
     // data.plr_x = 5;
     // data.plr_y = 13;
 		rc.config = data;
-		write(1, "Try 2\n", 6);
+		
+		
+
 		ft_count_lines(&rc);
-		printf("NB lines: %d\n", rc.nblines);
+	
 		ft_mlx(&rc);
 
 	}
