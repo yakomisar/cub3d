@@ -1,6 +1,14 @@
-//
-// Created by matsony on 01.03.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sstyr <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/01 13:33:32 by sstyr             #+#    #+#             */
+/*   Updated: 2022/03/01 13:33:34 by sstyr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
@@ -11,7 +19,7 @@ void	ft_get_texture_adress(t_raycast *rc)
 		&rc->texture[0].line_length, &rc->texture[0].endian);
 	rc->texture[1].addr = (int *)mlx_get_data_addr(rc->texture[1].img, \
 		&rc->texture[1].bits_per_pixel, \
-		rc->texture[1].line_length, &rc->texture[1].endian);
+		&rc->texture[1].line_length, &rc->texture[1].endian);
 	rc->texture[2].addr = (int *)mlx_get_data_addr(rc->texture[2].img, \
 		&rc->texture[2].bits_per_pixel, \
 		&rc->texture[2].line_length, &rc->texture[2].endian);
@@ -22,21 +30,21 @@ void	ft_get_texture_adress(t_raycast *rc)
 
 void	ft_get_texture(t_raycast *rc)
 {
-	if (!(rc->texture[0].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
-		rc->config.no, &(rc->texture[0].width), \
-		&(rc->texture[0].height))))
+	rc->texture[0].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
+		rc->config.no, &(rc->texture[0].width), &(rc->texture[0].height));
+	if (!rc->texture[0].img)
 		ft_error(rc, "Texture SO\n");
-	if (!(rc->texture[1].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
-		rc->config.so, &(rc->texture[1].width), \
-		&(rc->texture[1].height))))
+	rc->texture[1].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
+		rc->config.so, &(rc->texture[1].width), &(rc->texture[1].height));
+	if (!rc->texture[1].img)
 		ft_error(rc, "Texture NO\n");
-	if (!(rc->texture[2].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
-		rc->config.we, &(rc->texture[2].width), \
-		&(rc->texture[2].height))))
+	rc->texture[2].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
+		rc->config.we, &(rc->texture[2].width), &(rc->texture[2].height));
+	if (!rc->texture[2].img)
 		ft_error(rc, "Texture EA\n");
-	if (!(rc->texture[3].img = mlx_xpm_file_to_image(rc->data.mlx_ptr,
-	rc->config.ea, &(rc->texture[3].width), \
-		 &(rc->texture[3].height)))) \
+	rc->texture[3].img = mlx_xpm_file_to_image(rc->data.mlx_ptr, \
+		rc->config.ea, &(rc->texture[3].width), &(rc->texture[3].height));
+	if (!rc->texture[3].img)
 		ft_error(rc, "Texture WE\n");
 	ft_get_texture_adress(rc);
 }
@@ -63,12 +71,9 @@ int	ft_mlx(t_raycast *rc)
 {
 	ft_init_ray(rc);
 	printf("here\n");
-	if (!(rc->data.mlx_ptr = mlx_init()))
+	rc->data.mlx_ptr = mlx_init();
+	if (!rc->data.mlx_ptr)
 		ft_error(rc, "Mlx init impossible\n");
-//	mlx_get_screen_size(rc->data.mlx_ptr, &rc->screenx, &rc->screeny);
-//	rc->rx = (rc->rx > rc->screenx) ? rc->screenx : rc->rx;
-//	rc->ry = (rc->ry > rc->screeny) ? rc->screeny : rc->ry;
-//	printf("%i %i\n", rc->rx, rc->ry);
 	ft_get_texture(rc);
 	rc->data.img = mlx_new_image(rc->data.mlx_ptr, rc->screenx, rc->screeny);
 	rc->data.addr = (int *)mlx_get_data_addr(rc->data.img, &rc->data. \

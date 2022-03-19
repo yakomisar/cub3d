@@ -1,105 +1,113 @@
-//
-// Created by matsony on 05.03.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sstyr <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/05 13:33:32 by sstyr             #+#    #+#             */
+/*   Updated: 2022/03/05 13:33:34 by sstyr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void    ft_count_lines(t_raycast *rc)
+void	ft_count_lines(t_raycast *rc)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(rc->config.map[i])
-        i++;
-    rc->nblines = i;
+	i = 0;
+	while (rc->config.map[i])
+		i++;
+	rc->nblines = i;
 }
 
-int		ft_color_column(t_raycast *rc)
+int	ft_color_column(t_raycast *rc)
 {
-    int j;
-    int i;
+	int	j;
+	int	i;
 
-    j = -1;
-    rc->ray.drawend = rc->screeny - rc->ray.drawstart;
-    i = rc->ray.drawend;
-    while (++j < rc->ray.drawstart)
-        rc->data.addr[j * rc->data.line_length / 4 +
-                      rc->ray.x] = rc->config.ceiling;
-    if (j <= rc->ray.drawend)
-        ft_draw_texture(rc, rc->ray.x, j);
-    j = i;
-    while (++j < rc->screeny)
-        rc->data.addr[j * rc->data.line_length / 4 +
-                      rc->ray.x] = rc->config.floor;
-    return (0);
+	j = -1;
+	rc->ray.drawend = rc->screeny - rc->ray.drawstart;
+	i = rc->ray.drawend;
+	while (++j < rc->ray.drawstart)
+		rc->data.addr[j * rc->data.line_length / 4 + \
+			rc->ray.x] = rc->config.ceiling;
+	if (j <= rc->ray.drawend)
+		ft_draw_texture(rc, rc->ray.x, j);
+	j = i;
+	while (++j < rc->screeny)
+		rc->data.addr[j * rc->data.line_length / 4 + \
+			rc->ray.x] = rc->config.floor;
+	return (0);
 }
 
 void	ft_calc_start_end(t_raycast *rc)
 {
-    if (rc->ray.side == 0)
-        rc->ray.perpwalldist = ((double)rc->ray.mapx - \
-				rc->ray.posx + (1 - (double)rc->ray.
-                stepx) / 2) / rc->ray.raydirx;
-    else
-        rc->ray.perpwalldist = ((double)rc->ray.mapy - \
-				rc->ray.posy + (1 - (double)rc->ray.
-                stepy) / 2) / rc->ray.raydiry;
-    rc->ray.lineheight = (int)(rc->screeny / rc->ray.perpwalldist);
-    rc->ray.drawstart = -rc->ray.lineheight / 2 + rc->screeny / 2;
-    if (rc->ray.drawstart < 0)
-        rc->ray.drawstart = 0;
-    rc->ray.drawend = rc->ray.lineheight / 2 + rc->screeny / 2;
-    if (rc->ray.drawend >= rc->screeny || rc->ray.drawend < 0)
-        rc->ray.drawend = rc->screeny - 1;
+	if (rc->ray.side == 0)
+		rc->ray.perpwalldist = ((double)rc->ray.mapx - \
+			rc->ray.posx + (1 - (double)rc->ray. \
+			stepx) / 2) / rc->ray.raydirx;
+	else
+		rc->ray.perpwalldist = ((double)rc->ray.mapy - \
+			rc->ray.posy + (1 - (double)rc->ray. \
+			stepy) / 2) / rc->ray.raydiry;
+	rc->ray.lineheight = (int)(rc->screeny / rc->ray.perpwalldist);
+	rc->ray.drawstart = -rc->ray.lineheight / 2 + rc->screeny / 2;
+	if (rc->ray.drawstart < 0)
+		rc->ray.drawstart = 0;
+	rc->ray.drawend = rc->ray.lineheight / 2 + rc->screeny / 2;
+	if (rc->ray.drawend >= rc->screeny || rc->ray.drawend < 0)
+		rc->ray.drawend = rc->screeny - 1;
 }
 
 void	ft_increment_ray(t_raycast *rc)
 {
-    while (rc->ray.hit == 0)
-    {
-        if (rc->ray.sidedistx < rc->ray.sidedisty)
-        {
-            rc->ray.sidedistx += rc->ray.deltadistx;
-            rc->ray.mapx += rc->ray.stepx;
-            rc->ray.side = 0;
-        }
-        else
-        {
-            rc->ray.sidedisty += rc->ray.deltadisty;
-            rc->ray.mapy += rc->ray.stepy;
-            rc->ray.side = 1;
-        }
-        if (rc->config.map[rc->ray.mapx][rc->ray.mapy] == '1')
-            rc->ray.hit = 1;
-    }
-    ft_calc_start_end(rc);
+	while (rc->ray.hit == 0)
+	{
+		if (rc->ray.sidedistx < rc->ray.sidedisty)
+		{
+			rc->ray.sidedistx += rc->ray.deltadistx;
+			rc->ray.mapx += rc->ray.stepx;
+			rc->ray.side = 0;
+		}
+		else
+		{
+			rc->ray.sidedisty += rc->ray.deltadisty;
+			rc->ray.mapy += rc->ray.stepy;
+			rc->ray.side = 1;
+		}
+		if (rc->config.map[rc->ray.mapx][rc->ray.mapy] == '1')
+			rc->ray.hit = 1;
+	}
+	ft_calc_start_end(rc);
 }
 
 void	ft_calc_step(t_raycast *rc)
 {
-    if (rc->ray.raydirx < 0)
-    {
-        rc->ray.stepx = -1;
-        rc->ray.sidedistx = (rc->ray.posx - rc->ray.mapx) \
+	if (rc->ray.raydirx < 0)
+	{
+		rc->ray.stepx = -1;
+		rc->ray.sidedistx = (rc->ray.posx - rc->ray.mapx) \
 							* rc->ray.deltadistx;
-    }
-    else
-    {
-        rc->ray.stepx = 1;
-        rc->ray.sidedistx = (rc->ray.mapx + 1.0 - rc->ray.posx) \
+	}
+	else
+	{
+		rc->ray.stepx = 1;
+		rc->ray.sidedistx = (rc->ray.mapx + 1.0 - rc->ray.posx) \
 							* rc->ray.deltadistx;
-    }
-    if (rc->ray.raydiry < 0)
-    {
-        rc->ray.stepy = -1;
-        rc->ray.sidedisty = (rc->ray.posy - rc->ray.mapy) \
+	}
+	if (rc->ray.raydiry < 0)
+	{
+		rc->ray.stepy = -1;
+		rc->ray.sidedisty = (rc->ray.posy - rc->ray.mapy) \
 							* rc->ray.deltadisty;
-    }
-    else
-    {
-        rc->ray.stepy = 1;
-        rc->ray.sidedisty = (rc->ray.mapy + 1.0 - rc->ray.posy) \
+	}
+	else
+	{
+		rc->ray.stepy = 1;
+		rc->ray.sidedisty = (rc->ray.mapy + 1.0 - rc->ray.posy) \
 							* rc->ray.deltadisty;
-    }
-    ft_increment_ray(rc);
+	}
+	ft_increment_ray(rc);
 }

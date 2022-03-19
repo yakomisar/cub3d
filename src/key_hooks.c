@@ -1,10 +1,18 @@
-//
-// Created by matsony on 14.03.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sstyr <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/14 13:33:32 by sstyr             #+#    #+#             */
+/*   Updated: 2022/03/14 13:33:34 by sstyr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int		ft_key_press(int keycode, t_raycast *rc)
+int	ft_key_press(int keycode, t_raycast *rc)
 {
 	if (keycode == W_KEY)
 		rc->data.forward = 1;
@@ -23,7 +31,7 @@ int		ft_key_press(int keycode, t_raycast *rc)
 	return (1);
 }
 
-int		ft_key_release(int keycode, t_raycast *rc)
+int	ft_key_release(int keycode, t_raycast *rc)
 {
 	if (keycode == W_KEY)
 		rc->data.forward = 0;

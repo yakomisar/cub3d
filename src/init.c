@@ -1,6 +1,14 @@
-//
-// Created by matsony on 09.03.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sstyr <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 13:33:32 by sstyr             #+#    #+#             */
+/*   Updated: 2022/03/09 13:33:34 by sstyr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
@@ -39,38 +47,6 @@ void	ft_init_ray(t_raycast *rc)
 	rc->ray.planx = 0;
 	rc->ray.plany = 0;
 	ft_init_ray_sub(rc);
-}
-
-void	ft_calc_ray_sub(t_raycast *rc)
-{
-	if (rc->ray.raydiry == 0)
-		rc->ray.deltadistx = 0;
-	else if (rc->ray.raydirx == 0)
-		rc->ray.deltadistx = 1;
-	else
-		rc->ray.deltadistx = sqrt(1 + (rc->ray.raydiry
-				* rc->ray.raydiry) / (rc->ray.raydirx * rc->ray.raydirx));
-	if (rc->ray.raydirx == 0)
-		rc->ray.deltadisty = 0;
-	else if (rc->ray.raydiry == 0)
-		rc->ray.deltadisty = 1;
-	else
-		rc->ray.deltadisty = sqrt(1 + (rc->ray.raydirx
-				* rc->ray.raydirx) / (rc->ray.raydiry * rc->ray.raydiry));
-}
-
-void	ft_calc_ray(t_raycast *rc)
-{
-	rc->ray.hit = 0;
-	rc->ray.perpwalldist = 0;
-	rc->ray.camerax = 2 * rc->ray.x / (double)rc->screenx - 1;
-	rc->ray.raydirx = rc->ray.dirx + rc->ray.planx * rc->ray.camerax;
-	rc->ray.raydiry = rc->ray.diry + rc->ray.plany * rc->ray.camerax;
-	rc->ray.mapx = (int)rc->ray.posx;
-	rc->ray.mapy = (int)rc->ray.posy;
-	rc->ray.movespeed = 0.1;
-	rc->ray.rotspeed = 0.033 * 1.8;
-	ft_calc_ray_sub(rc);
 }
 
 void	ft_init_sub(t_raycast *rc)

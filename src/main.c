@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sstyr <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/19 13:33:32 by sstyr             #+#    #+#             */
+/*   Updated: 2022/03/19 13:33:34 by sstyr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
 //NO ./path_to_the_north_texture
@@ -23,13 +35,13 @@
 
 int	main(int argc, char **argv)
 {
-	char **map;
-	t_data data;
-	t_raycast rc;
+	char		**map;
+	t_data		data;
+	t_raycast	rc;
 
 	(void) argc;
 	(void) argv;
-	map = malloc(sizeof (char*) * 14);
+	map = malloc(sizeof (char *) * 14);
 	map[0] = "1111111111111111111111111";
 	map[1] = "1000000000110000000000001";
 	map[2] = "1011000001110000000000001";
@@ -44,7 +56,6 @@ int	main(int argc, char **argv)
 	map[11] = "11000001110101011111011110N0111";
 	map[12] = "11110111 1110101 101111010001";
 	map[13] = "11111111 1111111 111111111111";
-
 	ft_init(&rc);
 	data.map = map;
 	data.ceiling = 2552030;
